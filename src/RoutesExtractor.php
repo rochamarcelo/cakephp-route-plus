@@ -50,8 +50,8 @@ class RoutesExtractor
                 if ($controller['name'] === 'App') {
                     continue;
                 }
-                $reflaction = new \ReflectionClass($controller['className']);
-                $methods = $reflaction->getMethods(\ReflectionMethod::IS_PUBLIC&~\ReflectionMethod::IS_ABSTRACT);
+                $reflection = new \ReflectionClass($controller['className']);
+                $methods = $reflection->getMethods(\ReflectionMethod::IS_PUBLIC&~\ReflectionMethod::IS_ABSTRACT);
                 foreach ($methods as $method) {
                     if ($baseClass->hasMethod($method->getName())) {
                         continue;
