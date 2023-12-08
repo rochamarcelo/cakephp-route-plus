@@ -12,7 +12,8 @@ composer require rochamarcelo/cakephp-route-plus
 
 
 ## Using Routes Extractor
-This allows you to remove the usage of fallback routes and possible improve routing with static route paths (ex: /articles/view)
+This allows you to remove the usage of fallback to avoid generic urls in favor of
+explicitly defined routes and possible improve routing with static route paths (ex: /articles/view)
 
 ### Recommended usage:
 Create this method inside your AppController
