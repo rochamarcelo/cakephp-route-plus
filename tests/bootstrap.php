@@ -24,6 +24,25 @@ unset($findRoot);
 
 chdir($root);
 
+if (!defined('DS')) {
+    define('DS', DIRECTORY_SEPARATOR);
+}
+define('ROOT', $root);
+define('APP_DIR', 'TestApp');
+define('WEBROOT_DIR', 'webroot');
+define('TESTS', ROOT . DS . 'tests' . DS);
+define('TEST_APP', TESTS . 'test_app' . DS);
+define('APP', TEST_APP . 'TestApp' . DS);
+define('WWW_ROOT', TEST_APP . 'webroot' . DS);
+define('CONFIG', TEST_APP . 'config' . DS);
+
+define('TMP', ROOT . DS . 'tmp' . DS);
+define('LOGS', TMP . 'logs' . DS);
+define('CACHE', TMP . 'cache' . DS);
+define('CAKE_CORE_INCLUDE_PATH', ROOT . '/vendor/cakephp/cakephp');
+define('CORE_PATH', CAKE_CORE_INCLUDE_PATH . DS);
+define('CAKE', CORE_PATH . 'src' . DS);
+
 require_once $root . '/vendor/autoload.php';
 
 /**
