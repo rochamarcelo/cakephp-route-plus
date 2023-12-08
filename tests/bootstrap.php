@@ -46,6 +46,7 @@ define('CAKE', CORE_PATH . 'src' . DS);
 
 require_once $root . '/vendor/autoload.php';
 
+\Cake\Core\Configure::write('debug', true);
 \Cake\Core\Configure::write('App', [
     'namespace' => 'TestApp',
     'encoding' => 'UTF-8',
