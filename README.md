@@ -57,6 +57,6 @@ return function (RouteBuilder $routes): void {
 Run this command when deploying to production or when disabled debug.
 
 ```
-bin/cake routes_extract_dump
+bin/cake route_plus.routes_extract_dump
 ```
 
