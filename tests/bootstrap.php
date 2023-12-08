@@ -32,6 +32,7 @@ define('APP_DIR', 'TestApp');
 define('WEBROOT_DIR', 'webroot');
 define('TESTS', ROOT . DS . 'tests' . DS);
 define('TEST_APP', TESTS . 'test_app' . DS);
+define('TEST_PLUGIN_FAKE', TEST_APP . 'plugins' . DS . 'TestFaker' . DS . 'src' . DS);
 define('APP', TEST_APP . 'TestApp' . DS);
 define('WWW_ROOT', TEST_APP . 'webroot' . DS);
 define('CONFIG', TEST_APP . 'config' . DS);
@@ -45,18 +46,36 @@ define('CAKE', CORE_PATH . 'src' . DS);
 
 require_once $root . '/vendor/autoload.php';
 
-/**
- * Define fallback values for required constants and configuration.
- * To customize constants and configuration remove this require
- * and define the data required by your plugin here.
- */
-require_once $root . '/vendor/cakephp/cakephp/tests/bootstrap.php';
-
+\Cake\Core\Configure::write('App', [
+    'namespace' => 'TestApp',
+    'encoding' => 'UTF-8',
+    'base' => false,
+    'baseUrl' => false,
+    'dir' => 'src',
+    'webroot' => WEBROOT_DIR,
+    'wwwRoot' => WWW_ROOT,
+    'fullBaseUrl' => 'http://example.com',
+    'imageBaseUrl' => 'img/',
+    'jsBaseUrl' => 'js/',
+    'cssBaseUrl' => 'css/',
+    'paths' => [
+        'plugins' => [dirname(APP) . DS . 'plugins' . DS],
+        'templates' => [dirname(APP) . DS . 'templates' . DS],
+    ],
+]);
 if (file_exists($root . '/config/bootstrap.php')) {
     require $root . '/config/bootstrap.php';
 
     return;
 }
+if (!getenv('db_dsn')) {
+    putenv('db_dsn=sqlite:///:memory:');
+}
+
+Cake\Datasource\ConnectionManager::setConfig('test', [
+    'url' => getenv('db_dsn'),
+    'timezone' => 'UTC',
+]);
 
 /**
  * Load schema from a SQL dump file.
@@ -68,7 +87,7 @@ if (file_exists($root . '/config/bootstrap.php')) {
  * using migrations to provide schema for your plugin,
  * and using \Migrations\TestSuite\Migrator to load schema.
  */
-use Cake\TestSuite\Fixture\SchemaLoader;
+use Cake\Core\Configure;use Cake\TestSuite\Fixture\SchemaLoader;
 
 // Load a schema dump file.
 (new SchemaLoader())->loadSqlFiles('tests/schema.sql', 'test');
