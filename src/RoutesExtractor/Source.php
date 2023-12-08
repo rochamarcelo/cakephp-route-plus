@@ -27,7 +27,6 @@ class Source
      */
     public static function fromApp(): static
     {
-        debug( Configure::read('App.namespace'));
         return new static(
             APP . 'Controller',
             sprintf(
