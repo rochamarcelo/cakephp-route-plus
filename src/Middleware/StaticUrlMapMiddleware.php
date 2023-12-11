@@ -11,10 +11,10 @@ use Psr\Http\Server\RequestHandlerInterface;
 class StaticUrlMapMiddleware implements MiddlewareInterface
 {
 
-    protected array $map;
+    protected array|\Closure $map;
 
     /**
-     * @param array $map Static urls mapping to target url, example:
+     * @param array|\Closure $map Static urls mapping to target url, example:
      *   [
      *      '/my/first/url' => [
      *          'controller' => 'DbPages',
@@ -32,7 +32,7 @@ class StaticUrlMapMiddleware implements MiddlewareInterface
      *       ],
      *   ]
      */
-    public function __construct(array $map)
+    public function __construct(array|\Closure $map)
     {
         $this->map = $map;
     }
@@ -42,6 +42,9 @@ class StaticUrlMapMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
+        if ($this->map instanceof \Closure) {
+            $this->map = ($this->map)();
+        }
         $urlPath = $request->getUri()->getPath();
         if ($urlPath !== '/') {
             $urlPath = rtrim($urlPath, '/');
