@@ -61,3 +61,28 @@ Run this command when deploying to production or when disabled debug.
 bin/cake route_plus.routes_extract_dump
 ```
 
+## StaticUrlMapMiddleware
+Sometimes we need to map static urls to a specific route. Static routes could be from database
+or a simple array of urls.
+
+Add this middleware before RoutingMiddleware
+```php
+//Using normal array
+->add(new \RoutePlus\Middleware\StaticUrlMapMiddleware([
+    '/my/first/url' => [
+        'controller' => 'DbPages',
+        'action' => 'display',
+    ],
+    '/my/another/url' => [
+        'controller' => 'DbPages',
+        'action' => 'display',
+    ],
+]))
+
+//Or using a closure to retrieve from database
+->add(new \RoutePlus\Middleware\StaticUrlMapMiddleware(function() {
+    //logic to retrieve from cache, database or custom logic.
+
+    return $map;
+})
+```
