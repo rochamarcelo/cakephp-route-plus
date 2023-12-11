@@ -10,9 +10,9 @@ use Cake\TestSuite\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use RoutePlus\Middleware\StaticUrlMapMiddleware;
+use RoutePlus\Middleware\StaticPathMapRoutingMiddleware;
 
-class StaticUrlMapMiddlewareTest extends TestCase
+class StaticPathMapRoutingMiddlewareTest extends TestCase
 {
     /**
      * Test process
@@ -27,7 +27,7 @@ class StaticUrlMapMiddlewareTest extends TestCase
     public function testProcess(array|\Closure $map, string $url, array $expectedUrl)
     {
         $runner = $this->getRequestHandler();
-        $middleware = new StaticUrlMapMiddleware($map);
+        $middleware = new StaticPathMapRoutingMiddleware($map);
         $request = new ServerRequest([
             'url' => $url,
         ]);
